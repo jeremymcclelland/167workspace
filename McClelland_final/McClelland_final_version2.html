@@ -53,8 +53,9 @@ function getQuantity(ticketName){
 //getCharge
 function getCharge(ticketName){
 	var ticketCharge = 0.0;
-	
-	//while(ticketName == "Junior" || ticketName == "Junior" ){
+	if (ticketName == "Child"){
+		ticketCharge = 0;
+	}else{
 	ticketCharge = prompt("Please input the total amount charged for this sale", 0.0);
 	ticketCharge = parseFloat(ticketCharge);
 	
@@ -62,7 +63,7 @@ function getCharge(ticketName){
 	while (ticketCharge < 0 || isNaN(ticketCharge) ){
 	ticketCharge = prompt("That is not a valid input. Please input the total amount charged for this sale", 0);
 	ticketCharge = parseFloat(ticketCharge);
-	};
+	};}
 	return ticketCharge;	
 	
 	
@@ -106,12 +107,17 @@ function getDelta(ticketName, ticketQuantity, ticketCharge){
 //displayOneOrder function begins
 function displayOneOrder(orderNumber, ticketName, ticketQuantity, ticketCharge, DELTA){
 //BINGO, to make this work, the DIV has to populate dom before script tag with main function call 
+if(ticketName == "Child"){
+		document.getElementById("mainContent").innerHTML = document.getElementById("mainContent").innerHTML + (
+					"<table class='table table-condensed'><tr><th>#</th><th>TYPE</th><th>QTY</th><th>ACTUAL CHG</th><th>DELTA</th></tr>" +
+					"<tr><td>" + orderNumber + "</td><td>" + ticketName + "</td><td>" + ticketQuantity + "</td><td></td><td></td></tr></table>");
+}else{
 
 	document.getElementById("mainContent").innerHTML = document.getElementById("mainContent").innerHTML + (
 					"<table class='table table-condensed'><tr><th>#</th><th>TYPE</th><th>QTY</th><th>ACTUAL CHG</th><th>DELTA</th></tr>" +
 					"<tr><td>" + orderNumber + "</td><td>" + ticketName + "</td><td>" + ticketQuantity + "</td><td>$" + ticketCharge.toFixed(2) + "</td><td>" + DELTA.toFixed(2) + "</td></tr></table>");
 
-}//end of displayOneOrder
+}}//end of displayOneOrder
 
 
 ///////////////////////////////////////////////	
@@ -127,7 +133,7 @@ function displayFinalReport(orderNumber, adultTicketCount, adultTotal, juniorTic
 		"<table class='table table-condensed'><tr><th>TICKET TYPE</th><th>TOTAL TICKET</th><th>TOTAL REVENUE</th></tr>" +
 		"<tr><td>ADULT</td><td>" + adultTicketCount + "</td><td>$" + adultTotal.toFixed(2) + "</td></tr>" +
 		"<tr><td>JUNIOR</td><td>" + juniorTicketCount + "</td><td>$" + juniorTotal.toFixed(2) + "</td></tr>" +
-		"<tr><td>CHILD</td><td>" + childTicketCount + "</td><td>$" + childTotal.toFixed(2) + "</td></tr></table>" +
+		"<tr><td>CHILD</td><td>" + childTicketCount + "</td><td>FREE</td></tr></table>" +
 		"<h3>TOTAL REVENUE: $" + totalTicketSales.toFixed(2) + "</h3>");
 	});
 }
