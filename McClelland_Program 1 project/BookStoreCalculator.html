@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+ <link rel="stylesheet" href="style.css">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>BookStoreCalculator</title>
+	<meta name="author" content="Eric Nelson" />
+	<!-- Date: 2014-08-29 -->
+</head>
+<body>
+<script type="text/javascript">
+//FILE  :  Bookstore Calculator.html
+//PROG  :  Jeremy McClelland
+//PURP  : Calculate sales costs for bookstore purchases
+
+var userName = "";
+var yearsAttended = 0;
+var itemName = "";
+var origPrice = 0.0;
+var howMany = 0;
+var discountPrice = 0.0;
+var totalCost = 0.0;
+var BREAK = "<br/>";
+
+
+document.write ("Welcome to the Bookstore. It's a good day to shop, because everything is on sale today!" + BREAK);
+document.write ("Let me know what you are looking for and I'll help you find it. Do you mind my asking what your name is?" + BREAK);
+userName = prompt("What is your first name?", "");
+//document.write ("The name you entered was " + userName + BREAK);
+document.write ("Nice to meet you, " + userName + BREAK);
+yearsAttended = prompt (userName + ", How many years have you been attending this school?", 0);
+itemName = prompt ("What item are you wanting to purchase today?", "");
+//added .replace incase someone inserts dollarsign into prompt window
+origPrice = prompt ("What is its listed price?", 0.0).replace("$", "");
+
+//parseFloat gives turns the prompt string into a float
+origPrice = parseFloat(origPrice);
+
+//discountPrice = origPrice – (origPrice * 0.37); *1 - 0.37 = .63*
+
+discountPrice = (origPrice * 0.63);
+//BONUS added .toFixed(2) to round up decimals to 2 places
+document.write ("The price for that item would be this for today only: $" + discountPrice.toFixed(2) + "." + BREAK);
+howMany = prompt ("So, how many of them would you want to buy?", 0);
+howMany = parseInt(howMany); //Convert it to an integer type
+//BONUS added .toFixed to round to 2 decimals
+totalCost = howMany * discountPrice;
+
+
+/*Print out info to user
+
+document.write ("Ok, " + userName + ", here's your total." + BREAK);
+document.write ("You are buying " + howMany + ' ' + itemName + "s." + BREAK);
+document.write ("The original price for that was $" + origPrice + "." + BREAK);
+document.write ("Since all items are 37% off today, the new price will be $" + discountPrice.toFixed(2) + '.' + BREAK);
+document.write ("So your total purchase comes out to $" + totalCost.toFixed(2) + '.' + BREAK);
+document.write ("You've done well over the last " + yearsAttended + " years. Good luck in the rest of your studies!" + BREAK);*/
+
+//BONUS alert final info instead of writing to document
+
+
+alert("Ok, " + userName + ", here's your total." +'\n'+
+"You are buying " + howMany + ' ' + itemName + "s." +'\n'+
+		"The original price for that was $" + origPrice + "."  +'\n'+
+		"Since all items are 37% off today, the new price will be $" + discountPrice.toFixed(2) + '.' +'\n'+
+		"So your total purchase comes out to $" + totalCost.toFixed(2) + '.'  +'\n'+
+		"You've done well over the last " + yearsAttended + " years. Good luck in the rest of your studies!");
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
+

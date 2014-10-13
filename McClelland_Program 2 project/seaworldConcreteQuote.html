@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="style.css">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Porpoise Pond Concrete Calculator</title>
+	<meta name="Jeremy McClelland" content="Porpoise Pond" />
+	<!-- Date: 2014-08-29 -->
+</head>
+<body>
+<script type="text/javascript">
+//FILE  :  Summerville Sea World Porpoise Pond.html
+//PROG  :  Jeremy McClelland
+//PURP  : Calculate area and concrete needed for Porpoise Pond
+
+var userFirstName = ";"
+var pondDiameter = 0;
+var domeDiameter = 0;
+var pondConcreteArea = 0.0;
+var domeMinusPondConcreteArea = 0.0;
+var pondConcreteCost = 0.0;
+var domeConcreteCost = 0.0;
+var waterVolume = 0.0;
+var numSeats = 0;
+
+//Constant
+
+var BREAK = "<br/>";
+var WATER_HEIGHT = 11;
+var REGULAR_CONCRETE = 27.50;
+var SUPER_CONCRETE = 37;
+
+
+//beginning program
+
+
+document.write ("Welcome to the future location of the new Porpoise Pond. Let's get some information to build a quote for materials." + BREAK);
+document.write ("Do you mind my asking what your name is?" + BREAK);
+userFirstName = prompt("What is your first name?", "");
+document.write ("Nice to meet you, " + userFirstName + BREAK + BREAK);
+
+pondDiameter = prompt("Ok, " + userFirstName + ", what will be the diameter of the pond?", "");
+pondDiameter = parseFloat(pondDiameter);
+alert ("Thanks " + userFirstName + ", this should be all I need to get started.");
+
+domeDiameter = pondDiameter * 3;
+
+//radius is half of diameter
+var pondRadius = pondDiameter * .5;
+pondConcreteArea = (pondRadius * pondRadius) * Math.PI;
+var domeRadius = domeDiameter * .5;
+var domeArea = (domeRadius * domeRadius) * Math.PI;
+domeMinusPondConcreteArea = domeArea - pondConcreteArea;
+pondConcreteCost = pondConcreteArea * SUPER_CONCRETE;
+domeConcreteCost = domeMinusPondConcreteArea * REGULAR_CONCRETE;
+waterVolume = pondConcreteArea * WATER_HEIGHT;
+var seatingArea = domeMinusPondConcreteArea * .5;
+numSeats = seatingArea / 5.5;
+numSeats = Math.floor(numSeats);
+
+
+//write results
+document.write ("Ok, " + userFirstName + ", here are the results." + BREAK + BREAK);
+document.write ("The pond diameter is " + pondDiameter + " Feet" + BREAK);
+document.write ("The diameter of the surrounding dome is " + domeDiameter + " Feet"  + BREAK);
+document.write ("The area of super re-inforced concrete under the pond is " + pondConcreteArea.toFixed(2) + " Square Feet" + BREAK);
+document.write ("The area of the rest of the dome is " + domeMinusPondConcreteArea.toFixed(2) + " Square Feet" + BREAK);
+//.replace(/\d(?=(\d{3})+\.)/g, '$&,') formats commas into the money value to make it easier to read
+document.write ("The cost for the super re-inforced concrete under the pond is $" + pondConcreteCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + BREAK);
+document.write ("The cost for the normal concrete under the rest of the dome is $" + domeConcreteCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + BREAK);
+document.write ("The volume of water that it takes to fill the pond to 11 feet is " + waterVolume.toFixed(2) + " cubic feet" + BREAK);
+document.write ("And finally, the amount of seats able to fit in the dome is " + numSeats + BREAK);
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
+

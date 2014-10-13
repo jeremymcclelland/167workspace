@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">	
+<link rel="stylesheet" href="style.css">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Summerville Seaworld Ticket Sales</title>
+	<meta name="Jeremy McClelland" content="Ticket Sales" />
+	
+<script>
+//getTicketType function
+function getTicketType(){			
+	var userChoice = 0;
+	userChoice = prompt("Please select 1 for toddler, 2 for junior, or 3 for adult", 0);
+	userChoice = parseInt(userChoice);
+	
+	
+	while (userChoice != 1 && userChoice != 2 && userChoice != 3){
+	userChoice = prompt("that is not a valid input. Please select 1 for toddler, 2 for junior, or 3 for adult");
+	userChoice = parseInt(userChoice);
+	};
+	
+	if(userChoice == 1){
+		userChoice = "TODDLER";
+	} else if (userChoice == 2){
+		userChoice = "JUNIOR";
+	} else {
+		userChoice = "ADULT";
+	}	
+	
+	
+	
+	return userChoice
+}	//end getTicketType function	
+
+
+///////////////////////////////////////////////	
+
+
+	
+//sooooo, in main state userChoice = getTicketType()
+//findTicketPrice function begins
+function findTicketPrice(userChoice){
+	var ticketPrice = 0.0;
+	//uses constants for ticket price
+	if(userChoice == "TODDLER"){
+		ticketPrice = TODDLER;
+	} else if (userChoice == "JUNIOR"){
+		ticketPrice = JUNIOR;
+	} else {
+		ticketPrice = ADULT;
+	}
+	return ticketPrice;	
+		
+}//findTicketPrice function ends	
+	
+	
+///////////////////////////////////////////////	
+	
+	
+//howManyTickets
+function howManyTickets(userChoice){
+	var ticketCount = 0;
+	ticketCount = prompt("Please input how many " + userChoice + " tickets you would like to purchase (10 limit max)", 0);
+	ticketCount = parseInt(ticketCount);
+	
+	
+	while (ticketCount > 10 || ticketCount < 0 || isNaN(ticketCount) ){
+	ticketCount = prompt("That is not a valid option. Please input how many tickets you would like to purchase (10 limit max)", 0);
+	ticketCount = parseInt(ticketCount);
+	};
+	return ticketCount;	
+	
+	
+}//howManyTickets ends
+
+///////////////////////////////////////////////	
+
+
+//displayPurchase function begins
+function displayPurchase(userChoice, ticketPrice, ticketCount, totalTicketsSold){
+	var totalPrice = ticketPrice * ticketCount;
+	document.write ("Thank You, your receipt is shown below." + BREAK + BREAK);
+	document.write (
+					"<table class='table'><tr><th>Ticket Type</th><th>Quantity</th><th>Ticket Total</th></tr>" +
+					"<tr><td>" + userChoice + "</td><td>" + ticketCount + "</td><td>" + totalPrice + "</td></tr></table>");
+	return totalPrice;
+}//end of displayPurchase
+
+
+///////////////////////////////////////////////	
+
+//begin displayFinalReport function
+function displayFinalReport(extraSeats, totalTicketsSold, toddlerTicketCount, juniorTicketCount, adultTicketCount, totalTicketSales){
+//Date
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+ 	   dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = mm+'/'+dd+'/'+yyyy;
+
+
+	return ("<h3>TICKET SALES REPORT FOR DATE: " + today + "</h3>" + BREAK +
+	"<table class='table'><tr><th class='text-center'>SEAT CAPACITY</th><th class='text-center'>EXTRAS</th><th class='text-center'>TOTAL SOLD</th></tr>" +
+	"<tr><td class='text-center'>" + MAX_SEAT_COUNT + "</td><td class='text-center'>" + extraSeats + "</td><td class='text-center'>" + totalTicketsSold + "</td></tr>" +
+    "<tr><th class='text-center'>TODDLERS</th><th class='text-center'>JUNIORS</th><th class='text-center'>ADULT</th></tr>" +
+    "<tr><td class='text-center'>" + toddlerTicketCount + "</td><td class='text-center'>" + juniorTicketCount + "</td><td class='text-center'>" + adultTicketCount + "</td></tr>" +
+    "<tr><th class='text-center'></th><th class='text-center'>GROSS FOR TODAY: $" + totalTicketSales + "</th><th class='text-center'></th></tr>" +
+    "</table>" + BREAK);
+};
+
+///////////////end of displayFinalReport
+
+
+
+
+
+</script>
+</head>
+<body>
+	
+	<h1>Summerville Sea World<br/>
+		Ticket Kiosk</h1>
+	
+	
+	
+	
+<script type="text/javascript">
+//FILE  :  seaworld_Ticket_Sales.html
+//PROG  :  Jeremy McClelland
+//PURP  : Calculates total ticket sales
+
+
+
+	//constant
+var MAX_SEAT_COUNT = 30;
+var TODDLER	= 0.0;
+var JUNIOR = 7.50;
+var ADULT = 11.50;
+var BREAK = "<br/>";
+
+var toddlerTicketCount = 0;
+var juniorTicketCount = 0;
+var adultTicketCount = 0;
+
+var totalTicketsSold = 0;	
+var totalTicketSales = 0.0;
+var extraSeats = 0;
+
+///////////////////////////////////////////////	
+function main(){
+//start main
+
+var toddlerTicketCount = 0;
+var juniorTicketCount = 0;
+var adultTicketCount = 0;
+
+var totalTicketsSold = 0;	
+var totalTicketSales = 0.0;
+var extraSeats = 0;
+
+
+document.write ("Welcome to Summerville Sea World!" + BREAK);
+document.write ("See below for ticket options." + BREAK + BREAK);
+
+
+document.write (
+	"<table class='table'><tr><th>Option</th><th>Ticket Type</th><th>Price Per Ticket</th></tr>" +
+	"<tr><td>1</td><td>Toddler</td><td>" + TODDLER + "</td></tr>" +
+	"<tr><td>2</td><td>Junior</td><td>" + JUNIOR + "</td></tr>" +
+    "<tr><td>3</td><td>Adult</td><td>$" + ADULT + "</td></tr></table>"	
+);
+
+
+	
+	while(MAX_SEAT_COUNT > totalTicketsSold)
+	{
+		
+		var userChoice = getTicketType();
+		var ticketPrice = findTicketPrice(userChoice);
+		var ticketCount =  howManyTickets(userChoice);
+		var totalPrice = displayPurchase(userChoice, ticketPrice, ticketCount);
+		//individual counter if statement
+		if (userChoice == "TODDLER"){
+			toddlerTicketCount += ticketCount;
+		} else if (userChoice == "JUNIOR"){
+			juniorTicketCount += ticketCount;
+		} else {
+			adultTicketCount += ticketCount;
+		}
+		///////end
+		
+		
+		
+		totalTicketsSold += ticketCount;
+		totalTicketSales += totalPrice;
+		extraSeats = totalTicketsSold - MAX_SEAT_COUNT;
+		
+		
+	};
+	
+	document.write("<button class='btn btn-primary' id = 'button'>Summary</button>");
+	
+window.onload = function(){
+    document.getElementById("button").onclick=function(){
+	document.body.innerHTML = "";
+	document.write(displayFinalReport(extraSeats, totalTicketsSold, toddlerTicketCount, juniorTicketCount, adultTicketCount, totalTicketSales));
+}
+}	
+
+	
+	
+	//end Main function
+	};
+
+///////////////////////////////////////////////	
+	main();
+
+</script>
+
+
+
+
+
+
+
+
+
+<!-- Large modal -->
+
+
+
+
+
+
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

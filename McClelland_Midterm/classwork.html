@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">	
+<link rel="stylesheet" href="style.css">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>ACME Cement Company</title>
+	<meta name="Jeremy McClelland" content="ACME Cement Comany Quote Gen" />
+	<!-- Date: 2014-08-29 -->
+</head>
+<body>
+	
+	<h1>ACME Cement Company<br/>
+Quote Generator</h1>
+	<p class="lead"><em>"Ac me no questions, and I'll sell you no lye!"</em></p>
+	
+	
+	
+<script type="text/javascript">
+
+var northSales = 0.0;
+var southSales = 0.0;
+var eastSales = 0.0;
+var westSales = 0.0;
+var region = "";
+var BREAK = "<br/>";
+var regionText = "";
+
+	 region = prompt("please enter region");
+	 region = region.toUpperCase();
+	 
+while (region != "N" && region != "S" && region != "E" && region != "W" && region != "X"){
+	region = prompt("that is not a valid input. Please input N, S, E, W, or X for quit");
+	region = region.toUpperCase();
+};
+
+
+while(region != "X"){
+//put sales here
+
+		if (region == "N") {
+			regionText = "North";	
+		} else if (region == "S"){
+			regionText = "South";
+		} else if (region == "W"){
+			regionText = "West";
+		}  else if (region == "E"){
+			regionText = "East";
+		}
+		
+		
+		sales = prompt("please enter in sales for the " + regionText, 0.0);
+		sales = parseFloat(sales);
+		while(isNaN(sales)){
+		sales = prompt("sorry, that is not a valid option. Please enter in sales for the " + regionText, 0.0);
+		sales = parseFloat(sales);	
+		}
+	
+	if (region == "N"){
+		northSales += sales;
+		
+		
+	} else if (region == "S"){
+		southSales += sales;
+		
+		
+	} else if (region == "E"){
+		eastSales += sales;
+		
+	} else if (region == "W"){
+		westSales += sales;
+		
+	}
+	 region = prompt("please enter region");
+	 region = region.toUpperCase();
+	 
+	while (region != "N" && region != "S" && region != "E" && region != "W" && region != "X"){
+	region = prompt("that is not a valid input. Please input N, S, E, W, or X for quit");
+	region = region.toUpperCase();
+	}
+};
+document.write("Total Sales for North: $" + northSales.toFixed(2) + BREAK);
+document.write("Total Sales for South: $" + southSales.toFixed(2) + BREAK);
+document.write("Total Sales for East: $" + eastSales.toFixed(2) + BREAK);
+document.write("Total Sales for West: $" + westSales.toFixed(2) + BREAK);
+
+
+</script>
+
+     
+
+
+    </div>
+  </div>
+</div>
+
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+

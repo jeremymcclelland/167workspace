@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">	
+<link rel="stylesheet" href="style.css">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Porpoise Pond Bid Selector</title>
+	<meta name="Jeremy McClelland" content="Porpoise Pond" />
+	<!-- Date: 2014-08-29 -->
+</head>
+<body>
+	
+	<h1>Moray Creative Programming<br/>
+DESIGN FOR SUMMERVILLE SEAWORLD</h1>
+	
+	
+	
+	
+<script type="text/javascript">
+//FILE  :  Summerville Sea World Bid Selector.html
+//PROG  :  Jeremy McClelland
+//PURP  : Calculate Cost of Multiple Bids for concreate
+
+
+//Define variables
+var userFirstName = "";
+var numGallons = 0;
+var pondVolume = 0.0;
+var pondRadius = 0.0;
+var pondDiameter = 0.0;
+var pondConcreteArea = 0.0;
+var domeDiameter = 0.0;
+var domeRadius = 0.0;
+var domeArea = 0.0;
+var domeMinusPondConcreteArea = 0.0;
+var numSeatsWood = 0;
+var numSeatsPlastic = 0;
+var seatChoice = 0;
+var seatFinal = 0;
+var bidChoice = 0;
+var bid1 = 0.0;
+var bid2 = 0.0;
+var bid3 = 0.0;
+var bid4 = 0.0;
+var bid5 = 0.0;
+var pondConcreteCost = 0.0;
+
+//Constant
+
+var BREAK = "<br/>";
+var pondHeight = 11;
+var woodSeat = 5.5;
+var plasticSeat = 4.8;
+
+
+//beginning program
+
+
+document.write ("Thank you for using the new Porpoise Pond Bid Report Program. Let's get some information to build a quote for materials." + BREAK);
+document.write ("Do you mind my asking what your name is?" + BREAK + BREAK);
+userFirstName = prompt("What is your first name?", "");
+document.write ("OK, " + userFirstName + ", we'll need some important figures to get the planning done." + BREAK + 
+"Please input things when you are prompted. Most figures will be simple whole numbers." + BREAK + 
+"Please don't use any commas in the numbers you input." + BREAK  + BREAK);
+
+//numGallons = prompt("First, please input the number of gallons to be used in the porpoise pond", 0);
+
+
+//added another function with while loop to validate gallon input
+
+var decideOnGallons = function()
+{
+	
+	while (numGallons < 100 || isNaN(numGallons)) {
+	numGallons = prompt("First, please input the number of gallons to be used in the porpoise pond (whole numbers and no commas, please)", 0);
+	if(numGallons < 100 || isNaN(numGallons)){
+		alert ("Please choose a number greater or equal to 100");
+		 
+	} 
+	}
+};
+
+
+
+
+
+decideOnGallons();
+
+
+
+
+
+
+
+//first round of calculations
+
+pondVolume = numGallons * 0.13368;
+pondRadius = Math.sqrt (pondVolume / (3.14159265 * pondHeight));
+pondDiameter = pondRadius * 2;
+pondConcreteArea = Math.PI * (pondRadius * pondRadius);
+
+domeDiameter = 3 * pondDiameter;
+domeRadius = (domeDiameter * .5);
+domeArea = (domeRadius * domeRadius) * Math.PI;
+domeMinusPondConcreteArea = domeArea - pondConcreteArea;
+
+//don't forget to floor chair numbers (can't have half a chair) EXTRA added .replace to add commas
+numSeatsWood = (domeMinusPondConcreteArea * .5) / woodSeat;
+numSeatsWood = (Math.floor(numSeatsWood)).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+numSeatsPlastic = (domeMinusPondConcreteArea * .5) / plasticSeat;
+numSeatsPlastic = (Math.floor(numSeatsPlastic)).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+document.write ("OK, if we fill the pond to the 11-foot level with " + numGallons.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " gallons of water, that will make the pond " + pondDiameter.toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " feet in diameter. If you plan to tell the contractor a round number of feet, be sure to tell them a lower number! If you round up, the pond will use too much water, and that could cause legal troubles!" + BREAK  + BREAK);
+
+
+document.write ("Now, " +  userFirstName + ", let's decide on what type of seats to buy. The two options are wooden deck chairs and bolted down plastic seats. Since the plastic seats are a bit smaller, you can put more of them in the available space. Here are the two options, showing how many seats of each type can be installed:"  + BREAK  + BREAK);
+
+document.write(
+	"<table class='table'><tr><th>Option</th><th>Seat Type</th><th>Number of Seats</th></tr>" +
+	"<tr><td>1</td><td>Wooden Seats</td><td>" + numSeatsWood + "</td></tr>" +
+    "<tr><td>2</td><td>Plastic Seats</td><td>" + numSeatsPlastic + "</td></tr></table>"	
+);
+
+//Decide on Seats function used while to loop prompt if invalid selection
+var decideOnSeats = function()
+{
+	
+	while (seatFinal != numSeatsWood || seatFinal != numSeatsPlastic) {
+	seatChoice = prompt("Please enter 1 for wooden and 2 for plastic:");
+	if(seatChoice == 1)
+	{
+		seatFinal = numSeatsWood;
+		alert ("OK, we will purchase the wooden seats.");
+		break; 
+	} else if (seatChoice == 2){
+		seatFinal = numSeatsPlastic;
+		alert ("OK, we will purchase the plastic seats.");
+		break;
+	} else {
+		alert ("sorry, that is not an option");
+		}
+}
+};
+
+//call function into play
+decideOnSeats();
+
+
+
+
+
+
+
+//cut program in half so user doesn't have to scroll down in browser
+document.body.innerHTML = '';
+
+document.write ("<h1>Moray Creative Programming<br/>" +
+"DESIGN FOR SUMMERVILLE SEAWORLD</h1>" + BREAK);
+
+
+
+document.write ("Now, " +  userFirstName + ", it's time to decide on which contractor will lay the concrete under the pond. Here are the five bids:"  + BREAK  + BREAK);
+
+//bid calculations
+
+bid1  =  (37.75 * pondConcreteArea).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+bid2  =  (38.95 * pondConcreteArea).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+bid3   = (44.99 * pondConcreteArea).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+bid4   = (45.35 * pondConcreteArea).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+bid5   = (22.85 * pondConcreteArea).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+document.write(
+	"<table class='table'><tr><th>BID</th><th>CONTRACTOR ID</th><th>BID AMOUNT ($ COST PER SQ FT)</th><th>TOTAL BID</th></tr>" +
+	"<tr><td>1</td><td>11237</td><td>37.75</td><td>$" + bid1 + "</td></tr>" +
+    "<tr><td>2</td><td>10979</td><td>38.95</td><td>$" + bid2 + "</td></tr>" +
+    "<tr><td>3</td><td>21352</td><td>44.99</td><td>$" + bid3 + "</td></tr>" +
+    "<tr><td>4</td><td>22976</td><td>45.35</td><td>$" + bid4 + "</td></tr>" +
+    "<tr><td>5</td><td>33209</td><td>22.85</td><td>$" + bid5 + "</td></tr></table>"
+);
+
+
+//easier to block code into functions
+//pheww, that was hard, had to use the while loop and set the default to pondConcreteCost == false to get it to work
+var pickABid = function()
+{
+	while (pondConcreteCost == false) 
+	{
+     bidChoice = prompt("Which concrete contractor will it be (1, 2, 3, 4, 5):");
+
+
+	 switch (bidChoice) 
+	 {
+      case "1":
+      pondConcreteCost = bid1;
+      alert ("OK, we will make a quote using bid 1");
+      break;
+      case "2":
+      pondConcreteCost = bid2;
+      alert ("OK, we will make a quote using bid 2");
+      break;
+      case "3":
+      pondConcreteCost = bid3;
+      alert ("OK, we will make a quote using bid 3");
+      break;
+      case "4":
+      pondConcreteCost = bid4;
+      alert ("OK, we will make a quote using bid 4");
+      break;
+      case "5":
+      pondConcreteCost = bid5;
+      alert ("OK, we will make a quote using bid 5");
+      break;
+      default:
+      pondConcreteCost = false;
+      alert("Sorry, that is not an option");
+	}
+
+ }
+};	
+
+pickABid();
+
+//Clears all content
+
+document.body.innerHTML = '';
+
+
+document.write ("<h1>Moray Creative Programming<br/>" +
+"DESIGN FOR SUMMERVILLE SEAWORLD</h1>" + BREAK);
+//print out report
+document.write(
+	"<table class='table'><tr><th>POND VALUES</th><th></th></tr>" +
+	"<tr><td>Diameter:</td><td>" + pondDiameter.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " feet</td></tr>" +
+    "<tr><td>Area:</td><td>" + pondConcreteArea.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " square feet</td></tr>" +
+    "<tr><td>Concrete cost:</td><td>$" + pondConcreteCost + "</td></tr>" +
+    "<tr><td>Gallons of water:</td><td>" + numGallons.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " (fills to the 11-foot mark)</td></tr>" +
+    "</table>"
+);
+
+document.write(
+	"<table class='table'><tr><th>DOME VALUES</th><th></th></tr>" +
+	"<tr><td>Diameter:</td><td>" + domeDiameter.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " feet</td></tr>" +
+    "<tr><td>Area open under dome:</td><td>" + domeMinusPondConcreteArea.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " square feet</td></tr>" +
+    "<tr><td># seats:</td><td>" + seatFinal + " (to fill half of the available dome area)</td></tr></table>"
+);
+
+
+document.write ("Please let us know if you need any further information. It's been a pleasure to meet your needs!");
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
+

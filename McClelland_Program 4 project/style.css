@@ -1,0 +1,12 @@
+body {
+
+    margin:10px;
+    line-height: 150%;
+};
+
+
+table th.text-center, table td.text-center { 
+    text-align: center;
+    padding: 0px;
+
+}

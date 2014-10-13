@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">	
+<link rel="stylesheet" href="style.css">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Summerville Seaworld Ticket Sales Summary</title>
+	<meta name="Jeremy McClelland" content="Ticket Sales" />
+	
+<script>
+//getTicketType function
+function getTicketType(){			
+	var ticketType = "";
+
+	
+	ticketType = prompt("Please select C for Child, J for junior, or A for adult or Q to quit", "");
+	ticketType = ticketType.toUpperCase();
+	
+	
+	while (ticketType != "C" && ticketType != "J" && ticketType != "A" && ticketType != "Q"){
+	ticketType = prompt("that is not a valid input. Please select C for Child, J for junior, or A for adult or Q to quit", "");
+	ticketType = ticketType.toUpperCase();
+	};
+	
+	
+	return ticketType;
+}	//end getTicketType function	
+
+
+///////////////////////////////////////////////	
+	
+	
+//getQuantity
+function getQuantity(ticketName){
+	var ticketQuantity = 0;
+	ticketQuantity = prompt("Please input how many " + ticketName + " tickets that were purchased", 0);
+	ticketQuantity = parseInt(ticketQuantity);
+	
+	
+	while (ticketQuantity > 10 || ticketQuantity < 0 || isNaN(ticketQuantity) ){
+	ticketQuantity = prompt("That is not a valid input. Please input how many tickets that were purchased", 0);
+	ticketQuantity = parseInt(ticketQuantity);
+	};
+	return ticketQuantity;	
+	
+	
+}//getQuantity ends
+
+///////////////////////////////////////////////	
+	
+//getCharge
+function getCharge(){
+	var ticketCharge = 0.0;
+	ticketCharge = prompt("Please input the total amount charged for this sale", 0.0);
+	ticketCharge = parseFloat(ticketCharge);
+	
+	
+	while (ticketCharge < 0 || isNaN(ticketCharge) ){
+	ticketCharge = prompt("That is not a valid input. Please input the total amount charged for this sale", 0);
+	ticketCharge = parseFloat(ticketCharge);
+	};
+	return ticketCharge;	
+	
+	
+}//getCharge ends
+
+///////////////////////////////////////////////
+//findTicketName begins
+
+function findTicketName(ticketType){
+	var ticketName = "";
+	
+	if(ticketType == "C"){
+		ticketName = "Child";
+	} else if (ticketType == "J"){
+		ticketName = "Junior";
+	} else {
+		ticketName = "Adult";
+	}
+	
+	return ticketName;	
+}
+
+//end findTicketName
+///////////////////////////////////////////////
+
+//begin getDelta function
+function getDelta(ticketName, ticketQuantity, ticketCharge){
+	
+	var DELTA = 0.0;
+	if(ticketName == "Child"){
+		DELTA = ticketCharge - (ticketQuantity * CHILD);
+	} else if (ticketName == "Junior"){
+		DELTA = ticketCharge - (ticketQuantity * JUNIOR);
+	} else {
+		DELTA = ticketCharge - (ticketQuantity * ADULT);
+	}
+	return DELTA;
+}
+///////////////////////////////////////////////
+
+//displayOneOrder function begins
+function displayOneOrder(orderNumber, ticketName, ticketQuantity, ticketCharge, DELTA){
+//BINGO, to make this work, the DIV has to populate dom before script tag with main function call 
+
+	document.getElementById("mainContent").innerHTML = document.getElementById("mainContent").innerHTML + (
+					"<table class='table table-condensed'><tr><th>#</th><th>TYPE</th><th>QTY</th><th>ACTUAL CHG</th><th>DELTA</th></tr>" +
+					"<tr><td>" + orderNumber + "</td><td>" + ticketName + "</td><td>" + ticketQuantity + "</td><td>$" + ticketCharge.toFixed(2) + "</td><td>" + DELTA.toFixed(2) + "</td></tr></table>");
+
+}//end of displayOneOrder
+
+
+///////////////////////////////////////////////	
+
+// displayFinalReport function starts
+function displayFinalReport(orderNumber, adultTicketCount, adultTotal, juniorTicketCount, juniorTotal, childTicketCount, childTotal, totalTicketSales){
+	document.getElementById("mainContent").innerHTML = (
+		"<h3>Number of records: " + orderNumber + "</h3>" +
+		"<h3>Sales Totals</h3>" + BREAK +
+		"<table class='table table-condensed'><tr><th>TICKET TYPE</th><th>TOTAL TICKET</th><th>TOTAL REVENUE</th></tr>" +
+		"<tr><td>ADULT</td><td>" + adultTicketCount + "</td><td>$" + adultTotal.toFixed(2) + "</td></tr>" +
+		"<tr><td>JUNIOR</td><td>" + juniorTicketCount + "</td><td>$" + juniorTotal.toFixed(2) + "</td></tr>" +
+		"<tr><td>CHILD</td><td>" + childTicketCount + "</td><td>$" + childTotal.toFixed(2) + "</td></tr></table>" +
+		"<h3>TOTAL REVENUE: $" + totalTicketSales.toFixed(2) + "</h3>"
+	);
+	
+}
+
+
+///////////////////////////////////////////////	
+	//constant
+var CHILD	= 0.0;
+var JUNIOR = 7.50;
+var ADULT = 11.50;
+var BREAK = "<br/>";
+
+
+
+function main(){
+//start main
+
+var childTicketCount = 0;
+var childTotal = 0.0;
+var juniorTicketCount = 0;
+var juniorTotal = 0.0;
+var adultTicketCount = 0;
+var adultTotal = 0.0;
+
+var totalTicketSales = 0.0;
+
+var orderNumber = 0;
+
+var ticketType = getTicketType();
+
+	while(ticketType != "Q"){
+		orderNumber++;
+		var ticketName = findTicketName(ticketType);
+		var ticketQuantity = getQuantity(ticketName);
+		var ticketCharge = getCharge();
+		var DELTA = getDelta(ticketName, ticketQuantity, ticketCharge);
+		displayOneOrder(orderNumber, ticketName, ticketQuantity, ticketCharge, DELTA);
+		
+		//counter
+		if (ticketName == "Child"){
+			childTicketCount += ticketQuantity;
+			childTotal += ticketCharge;
+		} else if (ticketName == "Junior"){
+			juniorTicketCount += ticketQuantity;
+			juniorTotal += ticketCharge;
+		} else {
+			adultTicketCount += ticketQuantity;
+			adultTotal += ticketCharge;
+		}
+		var ticketType = getTicketType();
+	}
+	totalTicketSales = childTotal + juniorTotal + adultTotal;
+	displayFinalReport(orderNumber, adultTicketCount, adultTotal, juniorTicketCount, juniorTotal, childTicketCount, childTotal, totalTicketSales)
+	//end Main function
+	};
+
+///////////////////////////////////////////////	
+
+
+
+</script>
+</head>
+<body>
+	
+	<h1>Summerville Sea World</h1>
+	
+	
+	
+	
+<script type="text/javascript">
+//FILE  :  seaworld_Ticket_Sales.html
+//PROG  :  Jeremy McClelland
+//PURP  : Calculates ticket summary for current date
+//Date
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+ 	   dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = mm+'/'+dd+'/'+yyyy;
+
+
+	document.write ("<h3>TICKET SALES REPORT FOR DATE: " + today + "</h3>");
+
+
+
+
+</script>
+
+
+<div id = "mainContent">
+	
+</div>	
+
+<script>
+main();
+</script>
+
+
+
+
+
+
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

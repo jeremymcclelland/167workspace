@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">	
+<link rel="stylesheet" href="style.css">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Summerville Seaworld Ticket Sales</title>
+	<meta name="Jeremy McClelland" content="Ticket Sales" />
+	<!-- Date: 2014-08-29 -->
+</head>
+<body>
+	
+	<h1>Summerville Sea World<br/>
+		Ticket Kiosk</h1>
+	
+	
+	
+	
+<script type="text/javascript">
+//FILE  :  seaworld_Ticket_Sales.html
+//PROG  :  Jeremy McClelland
+//PURP  : Calculates total ticket sales
+
+
+//Define variables
+var seatChoice = 0;
+var seatCount = 0;
+
+
+var toddlerTicketCount = 0;
+var totalToddler = 0.0;
+var juniorTicketCount = 0;
+var totalJunior = 0.0;
+var adultTicketCount = 0;
+var totalAdult = 0.0;
+
+var totalTicketsSold = 0;	
+var extraSeats = 0;
+var totalTicketSales = 0.0;
+
+
+//constant
+var MAX_SEAT_COUNT = 30;
+var TODDLER	= 0.0;
+var JUNIOR = 7.50;
+var ADULT = 11.50;
+var BREAK = "<br/>";
+
+document.write ("Welcome to Summerville Sea World!" + BREAK);
+document.write ("See below for ticket options." + BREAK + BREAK);
+
+
+document.write (
+	"<table class='table'><tr><th>Option</th><th>Ticket Type</th><th>Price Per Ticket</th></tr>" +
+	"<tr><td>1</td><td>Toddler</td><td>Free</td></tr>" +
+	"<tr><td>2</td><td>Junior</td><td>$7.50</td></tr>" +
+    "<tr><td>3</td><td>Adult</td><td>$11.50</td></tr></table>"	
+);
+
+
+//start program
+	while(MAX_SEAT_COUNT > totalTicketsSold)
+	{
+			
+	seatChoice = prompt("Please select 1 for toddler, 2 for junior, or 3 for adult", 0);
+		
+		
+		//if for Toddler ticket
+		if(seatChoice == 1)
+		{
+			
+			seatCount = parseInt(prompt("How many Toddler tickets would you like to purchase?", 0));
+
+
+			if (seatCount > 0 && seatCount <= 10)
+			{
+				toddlerTicketCount = toddlerTicketCount + seatCount;
+				totalToddler = totalToddler + (seatCount * TODDLER);
+				totalTicketsSold += seatCount;
+				document.write ("Thank You, your receipt is shown below." + BREAK + BREAK);
+				document.write (
+								"<table class='table'><tr><th>Ticket Type</th><th>Quantity</th><th>Ticket Total</th></tr>" +
+								"<tr><td>Toddler</td><td>" + seatCount + "</td><td>Free</td></tr></table>");
+
+			} else if (isNaN(seatCount))
+			{
+				alert ("sorry, that is not an option");
+			} else 
+			{
+				alert ("sorry, there is a 10 ticket purchase limit");	
+			};
+		
+		//else if for Junior ticket		
+			
+		} else if (seatChoice == 2)
+		
+		{
+			seatCount = parseInt(prompt("How many Junior tickets would you like to purchase?", 0));
+			if (seatCount > 0 && seatCount <= 10)
+			{
+				juniorTicketCount = juniorTicketCount + seatCount;
+				totalJunior = totalJunior + (seatCount * JUNIOR);
+				totalTicketsSold += seatCount;
+				document.write ("Thank You, your receipt is shown below." + BREAK + BREAK);
+				document.write (
+								"<table class='table'><tr><th>Ticket Type</th><th>Quantity</th><th>Ticket Total</th></tr>" +
+								"<tr><td>Junior</td><td>" + seatCount + "</td><td>$" + (seatCount * JUNIOR).toFixed(2) + "</td></tr></table>");
+
+				
+			} else if (isNaN(seatCount))
+			{
+				alert ("sorry, that is not an option");
+			} else 
+			{
+				alert ("sorry, there is a 10 ticket purchase limit");	
+			};			
+			
+		} else if (seatChoice == 3)
+		
+		{
+			seatCount = parseInt(prompt("How many Adult tickets would you like to purchase?", 0));
+			if (seatCount > 0 && seatCount <= 10)
+			{
+				adultTicketCount = adultTicketCount + seatCount;
+				totalAdult = totalAdult + (seatCount * ADULT);
+				totalTicketsSold += seatCount;
+				document.write ("Thank You, your receipt is shown below." + BREAK + BREAK);
+				document.write (
+								"<table class='table'><tr><th>Ticket Type</th><th>Quantity</th><th>Ticket Total</th></tr>" +
+								"<tr><td>Adult</td><td>" + seatCount + "</td><td>$" + (seatCount * ADULT).toFixed(2) + "</td></tr></table>");
+
+				
+			} else if (isNaN(seatCount))
+			{
+				alert ("sorry, that is not an option");
+			} else 
+			{
+				alert ("sorry, there is a 10 ticket purchase limit");	
+			};			
+			
+		} else if (seatChoice > 3 || seatChoice < 1 || isNaN(seatChoice))
+		{
+			alert("Sorry, that is not a valid option!");
+		};
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	//end of while loop	
+		
+	};
+	
+	
+	//last calculations
+	extraSeats = totalTicketsSold - MAX_SEAT_COUNT; 
+	totalTicketSales = totalJunior + totalAdult;
+	
+	//Date
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+ 	   dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = mm+'/'+dd+'/'+yyyy;
+
+document.write("<p>Please press the button below to see ticket sales summary.</p>");
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- Large modal -->
+<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Summary</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+<div align="center">
+<script>
+
+   
+
+</script>
+
+    </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
